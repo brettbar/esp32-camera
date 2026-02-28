@@ -1,0 +1,35 @@
+# --- ESP-IDF Build Outputs ---
+.cache/
+build/
+sdkconfig
+sdkconfig.old
+components/
+managed_components/
+dependencies.lock
+
+# --- Python and Virtual Environments ---
+.espressif/
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Editor / IDE Specific ---
+.vscode/
+# Note: If you want to share specific VS Code settings/tasks,
+# you can un-ignore .vscode/settings.json or .vscode/tasks.json
+.idea/
+*.swp
+*.swo
+
+# --- Logs and Temp Files ---
+*.log
+.DS_Store
+at_customize.bin
+custom_bootloader.bin
+
+# --- External Libraries/Components ---
+# Only ignore if you are using a package manager that reinstalls them
+# components/some_external_lib/
