@@ -1,23 +1,9 @@
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#include "ncamera.h"
 
-#include <esp_system.h>
-#include "esp_log.h"
 #include "esp_camera.h"
-
-#include "driver/gpio.h"
-
 #include "camera_pins.h"
 
-#define BLINK_LED 21
-
-
-
-void startCameraServer();
-
-void app_main(void) {
-    char *our_task_name = pcTaskGetName(NULL);
-
+esp_err_t init_camera(void) {
     camera_config_t camera_config = {
         .pin_pwdn       = PWDN_GPIO_NUM,
         .pin_reset      = RESET_GPIO_NUM,
@@ -46,36 +32,22 @@ void app_main(void) {
         .grab_mode      = CAMERA_GRAB_WHEN_EMPTY //  The image capture mode.
     };
 
-
     esp_err_t err = esp_camera_init(&camera_config);
     if ( err != ESP_OK ) {
-        ESP_LOGI(our_task_name, "Error encountered with esp camera init\n");
-        return;
+        return err;
     }
 
-    gpio_reset_pin(BLINK_LED);
-    gpio_set_direction(BLINK_LED, GPIO_MODE_OUTPUT);
-
-    while (1) {
-        gpio_set_level(BLINK_LED, 1);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-        gpio_set_level(BLINK_LED, 0);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    sensor_t * s = esp_camera_sensor_get();
+    // initial sensors are flipped vertically and colors are a bit saturated
+    if (s->id.PID == OV3660_PID) {
+        s->set_vflip(s, 1); // flip it back
+        s->set_brightness(s, 1); // up the brightness just a bit
+        s->set_saturation(s, -2); // lower the saturation
     }
+    // drop down frame size for higher initial frame rate
+    if(camera_config.pixel_format == PIXFORMAT_JPEG){
+        s->set_framesize(s, FRAMESIZE_QVGA);
+    }
+
+    return ESP_OK;
 }
-
-/* void app_main(void) { */
-/*     char *our_task_name = pcTaskGetName(NULL); */
-/**/
-/*     ESP_LOGI(our_task_name, "Hello, starting up\n"); */
-/**/
-/*     gpio_reset_pin(BLINK_LED); */
-/*     gpio_set_direction(BLINK_LED, GPIO_MODE_OUTPUT); */
-/**/
-/*     while (1) { */
-/*         gpio_set_level(BLINK_LED, 1); */
-/*         vTaskDelay(1000 / portTICK_PERIOD_MS); */
-/*         gpio_set_level(BLINK_LED, 0); */
-/*         vTaskDelay(1000 / portTICK_PERIOD_MS); */
-/*     } */
-/* } */
