@@ -9,5 +9,5 @@ I'm, writing in C and using [esp-idf](https://idf.espressif.com/) to build and f
 - Viewable in web browser
 
 ## Future Plans
-- Pair 2 boards, 1 facing out and 1 facing, mounted on a pair of glasses
-- Want to use an ML model with image embeddings for eye tracking and image recognition
+- Pair 2 boards, 1 facing out and 1 facing in, mounted on a pair of glasses or frame
+- Use an ML model with image embeddings for eye tracking and image recognition
