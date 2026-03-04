@@ -31,3 +31,5 @@ custom_bootloader.bin
 # --- External Libraries/Components ---
 # Only ignore if you are using a package manager that reinstalls them
 # components/some_external_lib/
+
+idf_component.yml
