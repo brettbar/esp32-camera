@@ -27,9 +27,10 @@ esp_err_t init_camera(void) {
         /* .fb_location = CAMERA_FB_IN_DRAM, */
         .pixel_format   = PIXFORMAT_JPEG, // The pixel format of the image: PIXFORMAT_ + YUV422|GRAYSCALE|RGB565|JPEG
         .frame_size     = FRAMESIZE_UXGA, // The resolution size of the image: FRAMESIZE_ + QVGA|CIF|VGA|SVGA|XGA|SXGA|UXGA
-        .jpeg_quality   = 12, // The quality of the JPEG image, ranging from 0 to 63.
+        .jpeg_quality   = 10, // The quality of the JPEG image, ranging from 0 to 63.
         .fb_count       = 2, // The number of frame buffers to use.
-        .grab_mode      = CAMERA_GRAB_WHEN_EMPTY //  The image capture mode.
+        /* .grab_mode      = CAMERA_GRAB_WHEN_EMPTY //  The image capture mode. */
+        .grab_mode = CAMERA_GRAB_LATEST,
     };
 
     esp_err_t err = esp_camera_init(&camera_config);

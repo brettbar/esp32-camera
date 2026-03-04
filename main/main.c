@@ -37,15 +37,6 @@ void app_main(void) {
 
 	start_webserver();
 
-
-
-	/* status = connect_tcp_server(); */
-	/* if (TCP_SUCCESS != status) */
-	/* { */
-	/* 	ESP_LOGI(TAG, "Failed to connect to remote server, dying..."); */
-	/* 	return; */
-	/* } */
-
     gpio_reset_pin(BLINK_LED);
     gpio_set_direction(BLINK_LED, GPIO_MODE_OUTPUT);
 

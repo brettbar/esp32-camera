@@ -90,8 +90,8 @@ esp_err_t connect_wifi()
     /** START THE WIFI DRIVER **/
     wifi_config_t wifi_config = {
         .sta = {
-            .ssid = "",
-            .password = "",
+            .ssid = "NagaNet",
+            .password = "3751781783",
 	     .threshold.authmode = WIFI_AUTH_WPA2_PSK,
             .pmf_cfg = {
                 .capable = true,
@@ -180,6 +180,7 @@ esp_err_t connect_tcp_server(void)
     return TCP_SUCCESS;
 }
 
+// initializes storage on the flash for us, cleans up pages if they exist
 void init_storage(void)
 {
     esp_err_t ret = nvs_flash_init();
